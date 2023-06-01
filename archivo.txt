@@ -10,8 +10,10 @@ inicio() {
 
    if (edad < 25 ) {
         imprimir ("Eres joven");
-   } else {
+   } else if {
         imprimir ("Eres mayor");
+   } else {
+        imprimir ("No existe");
    }
 
    while (altura > 1.50 ) {

@@ -1,1 +1,27 @@
-valor = ("no");
+inicio() {
+
+    /* Ejercicio 1 */
+
+   int edad = 17;
+   double ancho = 2.38;
+   double altura = 1.50;
+   string nombre = "Ana";
+   int salario = 2000;
+
+   if (edad < 25 ) {
+        imprimir ("Eres joven");
+   } else {
+        imprimir ("Eres mayor");
+   }
+
+   while (altura > 1.50 ) {
+    imprimir ("Eres alto");
+   }
+
+   while (salario < 2000 ) {
+    salario += 100;
+   }
+
+   int resultado = ( edad + 5 ) * 2;
+ 
+}

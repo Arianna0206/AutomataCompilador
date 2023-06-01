@@ -13,10 +13,6 @@
 using namespace std;
 // Usa el espacio de nombres std, lo cual evita tener que escribir "std::" antes de las funciones de la biblioteca estándar.
 
-// Define una función llamada isSeparador0case0 que verifica si un carácter es un separador en el caso 0.
-bool isSeparador0case0(char c) {
-    return c == ' ' || c == '=' || c == ')' || c == '/' || c == '*' || c == '<' || c == '>' || c == '+' || c == '-' || c == '!' || c == '}' || c == '\n' || c == '\t' || c == '{' || c == '(' || c == ';' || c == '"' || c == ',' || c == '.' ;
-}
 // Define una función llamada isSeparador1case1 que verifica si un carácter es un separador en el caso 1.
 bool isSeparador1case1(char c) {
         return c == ' ' || c == '=' || c == ')' || c == '/' || c == '*' || c == '<' || c == '>' || c == '+' || c == '-' || c == '!' || c == '}' || c == '\n' || c == '\t' || c == '{' || c == '(' || c == ';' || c == '"' || c == ',' || c == '.' ;
@@ -55,16 +51,8 @@ bool isSeparador9case10(char c) {
 }
 // Define un arreglo de palabras reservadas en el lenguaje.
 bool isKeyword(const std::string& currentToken) {
-    string reservadas[] = {
-        "inicio",
-        "if",
-        "else",
-        "while",
-        "int",
-        "double",
-        "string",
-        "imprimir"
-    };
+    string reservadas[] = {"inicio", "if", "else", "while", "int", "double", "string", "imprimir" };
+    
     // Verifica si el token actual coincide con alguna palabra reservada.
     for (size_t i = 0; i < sizeof(reservadas) / sizeof(reservadas[0]); ++i) {
         if (currentToken == reservadas[i]) {
@@ -116,14 +104,14 @@ int main() {
                 } else if (c == '=') {
                     e = 9;
                     currentToken = c;
-                } else if (isSeparador0case0(c)) {
+                } else if (c == ' ' || c == '\n' || c == '\t' || c == '"') {
                     e = 0;
                 } else {
                     cout << "Error: caracter inesperado " << c << " en la posición " << i << endl;
                     return 1;
                 }
                 break;
-            /* El caso case 1 se encarga de construir identificadores o palabras clave concatenando 
+            /* El case 1 se encarga de construir identificadores o palabras clave concatenando 
             caracteres hasta encontrar un separador o un espacio en blanco. Cuando se encuentra un 
             separador o espacio en blanco, se verifica si el token construido es una palabra clave 
             o un identificador y se imprimen los mensajes correspondientes. Luego, se reinicia currentToken 
@@ -145,7 +133,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 2 se encarga de construir números enteros concatenando dígitos hasta 
+            /* El case 2 se encarga de construir números enteros concatenando dígitos hasta 
             encontrar un separador específico. Cuando se encuentra el separador, se imprime el número 
             entero construido, se reinicia currentToken y se cambia al estado 0 para esperar el próximo 
             token. Si se encuentra un punto, se cambia al estado 3 para construir un número decimal. Si 
@@ -167,7 +155,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 3 se encarga de construir números decimales concatenando dígitos después de encontrar 
+            /* El case 3 se encarga de construir números decimales concatenando dígitos después de encontrar 
             un punto. Si se encuentran dígitos, se cambia al estado 4 y se agrega el dígito al currentToken. Además, 
             se imprime un mensaje indicando que se encontró un número decimal en la posición actual. Si se encuentra
             un carácter inesperado, se muestra un mensaje de error y se devuelve 1.*/
@@ -181,7 +169,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 4 se encarga de completar la construcción de un número decimal agregando dígitos 
+            /* El case 4 se encarga de completar la construcción de un número decimal agregando dígitos 
             después de la parte decimal. Si se encuentran dígitos, se agregan a currentToken. Si se encuentra 
             un separador válido, se imprime el número decimal construido hasta el momento, se limpia currentToken 
             y se imprime el separador encontrado. Si se encuentra un carácter inesperado, se muestra un mensaje 
@@ -199,8 +187,8 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 5 se encarga de reconocer y manejar operadores aritméticos. Si se encuentra un separador 
-            válido (por ejemplo, +, -, *, /), se imprime un mensaje indicando que se encontró un operador aritmético 
+            /* El case 5 se encarga de reconocer y manejar operadores aritméticos. Si se encuentra un separador 
+            válido, se imprime un mensaje indicando que se encontró un operador aritmético 
             en la posición actual y se limpia currentToken. Luego, se cambia al estado 0 para reiniciar el análisis 
             en busca de nuevos tokens. Si se encuentra un carácter inesperado, se muestra un mensaje de error y se devuelve 1.*/
             case 5:
@@ -213,8 +201,8 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 6 se encarga de reconocer y manejar delimitadores. Si se encuentra un delimitador válido
-            (por ejemplo, (, ), {, }), se imprime un mensaje indicando que se encontró un delimitador en la posición 
+            /* El case 6 se encarga de reconocer y manejar delimitadores. Si se encuentra un delimitador válido,
+            se imprime un mensaje indicando que se encontró un delimitador en la posición 
             actual y se limpia currentToken. Luego, se cambia al estado 0 para reiniciar el análisis en busca de nuevos 
             tokens. Si se encuentra un carácter inesperado, se muestra un mensaje de error y se devuelve 1.*/
             case 6:
@@ -227,7 +215,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 7 se encarga de reconocer y manejar caracteres de puntuación, como punto y coma (;) y coma (,). 
+            /* El case 7 se encarga de reconocer y manejar caracteres de puntuación, como punto y coma (;) y coma (,). 
             Si se encuentra un caracter de puntuación válido, se imprime un mensaje indicando que se encontró un caracter 
             de puntuación en la posición actual y se limpia currentToken. Luego, se cambia al estado 0 para reiniciar el 
             análisis en busca de nuevos tokens. Si se encuentra un carácter inesperado, se muestra un mensaje de error y 
@@ -242,7 +230,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 8 se encarga de reconocer y manejar operadores relacionales, como menor que (<) y mayor que (>). 
+            /* El case 8 se encarga de reconocer y manejar operadores relacionales, como menor que (<) y mayor que (>). 
             Si se encuentra un operador relacional válido, se imprime un mensaje indicando que se encontró un operador relacional 
             en la posición actual y se limpia currentToken. Luego, se cambia al estado 0 para reiniciar el análisis en busca de 
             nuevos tokens. Si se encuentra un carácter inesperado, se muestra un mensaje de error y se devuelve 1.*/
@@ -256,7 +244,7 @@ int main() {
                     return 1;
                 }
                 break;
-            /* El caso case 9 se encarga de reconocer y manejar el operador de igualdad (==). Si se encuentra un signo de 
+            /* El case 9 se encarga de reconocer y manejar el operador de igualdad (==). Si se encuentra un signo de 
             igual (=), se cambia al estado 10 y se imprime un mensaje indicando que se encontró un operador relacional en 
             la posición actual. Si se encuentra un separador válido, se imprime un mensaje indicando que se encontró un 
             separador en la posición actual y se cambia al estado 0. Si se encuentra un carácter inesperado, se muestra un 

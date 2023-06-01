@@ -55,7 +55,7 @@ bool isSeparador9case10(char c) {
 }
 // Define un arreglo de palabras reservadas en el lenguaje.
 bool isKeyword(const std::string& currentToken) {
-    std::string reservadas[] = {
+    string reservadas[] = {
         "inicio",
         "if",
         "else",
@@ -73,14 +73,6 @@ bool isKeyword(const std::string& currentToken) {
     }
     // Retorna falso si el token no es una palabra reservada.
     return false;
-}
-// Define una función llamada isNumero que verifica si un carácter es un dígito numérico.
-bool isNumero(char c) {
-    return isdigit(c);
-}
-// Define una función llamada isIdentificador que verifica si un carácter es un identificador alfabético.
-bool isIdentificador(char c) {
-    return isalpha(c);
 }
 
 int main() {
